@@ -97,16 +97,9 @@ public class MelodyMaker extends JDialog {
         claves.setLayout(new GridLayout(7, 2));
         claves.setMaximumSize(new Dimension(300,200));
         
-        
-        //podria usar un enum para las claves
-        String[] claveName ={ 
-        		"Redonda", "Blanca", "Negra", "Corchea",
-        		"Semicorchea", "Fusa", "Semifusa"
-        	};
-        
-        for (String cn : claveName) {
-        	JLabel labelName = new JLabel(cn);
-        	JLabel labelIcon = new JLabel(new ImageIcon("icons/"+cn+".png"));
+        for (Claves cn : Claves.values()) {
+        	JLabel labelName = new JLabel(cn.getName());
+        	JLabel labelIcon = new JLabel(new ImageIcon(cn.getFile()));
         	claves.add(labelName);
         	claves.add(labelIcon);
         	
