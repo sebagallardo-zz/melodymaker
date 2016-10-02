@@ -4,17 +4,20 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -27,7 +30,7 @@ import javax.swing.SwingUtilities;
 
 
 @SuppressWarnings("serial")
-public class MelodyMaker extends JDialog {
+public class MelodyMaker extends JFrame {
 
     public MelodyMaker() {
 
@@ -54,14 +57,14 @@ public class MelodyMaker extends JDialog {
                 
         basic.add(Box.createVerticalGlue());
         
+        
         /* BOTTOM */
         basic.add(bottomPanel());
 
 
         setTitle("Melody Maker");
-        setSize(new Dimension(650, 450));
+        setSize(new Dimension(960, 460));
         setResizable(false);
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         
         ImageIcon webIcon = new ImageIcon("icons/turntable.png");
@@ -89,28 +92,64 @@ public class MelodyMaker extends JDialog {
 	}
 
 	private JPanel midPanel() {
-		JPanel medio = new JPanel(new FlowLayout(FlowLayout.LEFT));
-//      JPanel medio = new JPanel(new GridLayout(1,2));
-        medio.setMaximumSize(new Dimension(600, 200));
+		//JPanel medio = new JPanel(new FlowLayout(FlowLayout.LEFT));.
+		JPanel medio = new JPanel(new BorderLayout());
+		//JPanel medio = new JPanel(new GridLayout(1,2));
+        medio.setMaximumSize(new Dimension(800, 300));
         
         JPanel claves = new JPanel();
         claves.setLayout(new GridLayout(7, 2));
-        claves.setMaximumSize(new Dimension(300,200));
+        claves.setMaximumSize(new Dimension(250,200));
         
         for (Claves cn : Claves.values()) {
         	JLabel labelName = new JLabel(cn.getName());
-        	JLabel labelIcon = new JLabel(new ImageIcon(cn.getFile()));
+        	JButton labelIcon = new JButton(new ImageIcon(cn.getFile()));
         	claves.add(labelName);
         	claves.add(labelIcon);
         	
         }
-        medio.add(claves);
+        medio.add(claves, BorderLayout.LINE_START);
+                
+        medio.add(new DrawPanel());
+        
+        
+        
 		return medio;
 	}
 
+	
+	class DrawPanel extends JPanel {
+
+	    private void doDrawing(Graphics g) {
+	        
+	        Graphics2D g2d = (Graphics2D) g;
+
+	        g2d.drawLine(20, 20, 700, 20);
+	        g2d.drawLine(20, 50, 700, 50);
+	        g2d.drawLine(20, 80, 700, 80);
+	        g2d.drawLine(20, 110, 700, 110);
+	        g2d.drawLine(20, 140, 700, 140);
+	        
+	        Toolkit t = Toolkit.getDefaultToolkit();
+	        Image imagen = t.getImage("icons/Clavesol.png");
+	        g.drawImage(imagen, 20, 40, this);
+	   
+	    }
+
+	    @Override
+	    public void paintComponent(Graphics g) {
+	        
+	        super.paintComponent(g);
+	        doDrawing(g);
+	    }
+	}
+	
+	
+	
+	
 	private JPanel topPanel() {
 		JPanel topPanel = new JPanel(new BorderLayout(0, 0));
-        topPanel.setMaximumSize(new Dimension(600, 100));
+        topPanel.setMaximumSize(new Dimension(900, 100));
         
         JLabel hint = new JLabel("Melody Maker");
         hint.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 0));
