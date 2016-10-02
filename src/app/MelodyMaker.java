@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
@@ -20,48 +21,75 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
 
-public class Test extends JDialog {
+@SuppressWarnings("serial")
+public class MelodyMaker extends JDialog {
 
-    public Test() {
+    public MelodyMaker() {
 
         initUI();
     }
 
     public final void initUI() {
     	
+    	/* MENU */
     	iniMenu();
 
+    	/* PANEL CONTAINER */
         JPanel basic = new JPanel();
         basic.setLayout(new BoxLayout(basic, BoxLayout.Y_AXIS));
         add(basic);
-
-        JPanel topPanel = new JPanel(new BorderLayout(0, 0));
-        topPanel.setMaximumSize(new Dimension(600, 100));
         
-        JLabel hint = new JLabel("Melody Maker");
-        hint.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 0));
-        topPanel.add(hint);
+        /* TOP */
+        basic.add(topPanel());
+        
+        /* TODO: FALTA EL PENTAGRAMA */
+        
+        /* MIDDLE */
+        basic.add(midPanel());
+                
+        basic.add(Box.createVerticalGlue());
+        
+        /* BOTTOM */
+        basic.add(bottomPanel());
 
-        ImageIcon icon = new ImageIcon("icons/altavoces.png");
-        JLabel label = new JLabel(icon);
-        label.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        topPanel.add(label, BorderLayout.EAST);
 
-        JSeparator separator = new JSeparator();
-        separator.setForeground(Color.gray);
+        setTitle("Melody Maker");
+        setSize(new Dimension(650, 450));
+        setResizable(false);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
+        ImageIcon webIcon = new ImageIcon("icons/turntable.png");
+        setIconImage(webIcon.getImage());
+    }
 
-        topPanel.add(separator, BorderLayout.SOUTH);
+	private JPanel bottomPanel() {
+		JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-        basic.add(topPanel);
-        // TOP
+        JButton play = new JButton("Play");
+        play.setMnemonic(KeyEvent.VK_P);
+        JButton close = new JButton("Close");
+        close.setMnemonic(KeyEvent.VK_C);
 
-        JPanel medio = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JTextField field = new JTextField(32);
+        JLabel lbl = new JLabel("Melodia");
+        bottom.add(lbl);
+        bottom.add(field);
+        
+        
+        bottom.add(play);
+        bottom.add(close);
+        bottom.setMaximumSize(new Dimension(600,0));
+		return bottom;
+	}
+
+	private JPanel midPanel() {
+		JPanel medio = new JPanel(new FlowLayout(FlowLayout.LEFT));
 //      JPanel medio = new JPanel(new GridLayout(1,2));
         medio.setMaximumSize(new Dimension(600, 200));
         
@@ -84,42 +112,28 @@ public class Test extends JDialog {
         	
         }
         medio.add(claves);
-        
-        /* TODO: FALTA EL PENTAGRAMA */
-        
-        basic.add(medio);
-                
-        // BOTTOM
-        basic.add(Box.createVerticalGlue());
-        JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		return medio;
+	}
 
-        JButton play = new JButton("Play");
-        play.setMnemonic(KeyEvent.VK_P);
-        JButton close = new JButton("Close");
-        close.setMnemonic(KeyEvent.VK_C);
-
-        JTextField field = new JTextField(32);
-        JLabel lbl = new JLabel("Melodia");
-        bottom.add(lbl);
-        bottom.add(field);
+	private JPanel topPanel() {
+		JPanel topPanel = new JPanel(new BorderLayout(0, 0));
+        topPanel.setMaximumSize(new Dimension(600, 100));
         
-        
-        bottom.add(play);
-        bottom.add(close);
-        basic.add(bottom);
+        JLabel hint = new JLabel("Melody Maker");
+        hint.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        topPanel.add(hint);
 
-        bottom.setMaximumSize(new Dimension(600,0));
+        ImageIcon icon = new ImageIcon("icons/altavoces.png");
+        JLabel label = new JLabel(icon);
+        label.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        topPanel.add(label, BorderLayout.EAST);
 
-        setTitle("Melody Maker");
-        setSize(new Dimension(650, 450));
-        setResizable(false);
-        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-        
-        ImageIcon webIcon = new ImageIcon("icons/turntable.png");
-        setIconImage(webIcon.getImage());
+        JSeparator separator = new JSeparator();
+        separator.setForeground(Color.gray);
 
-    }
+        topPanel.add(separator, BorderLayout.SOUTH);
+		return topPanel;
+	}
     
     private void iniMenu() {
 
@@ -134,9 +148,11 @@ public class Test extends JDialog {
         unMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,
                 ActionEvent.CTRL_MASK));
         unMenuItem.setToolTipText("Exit application");
-        unMenuItem.addActionListener((ActionEvent event) -> {
-            System.exit(0);
-        });
+        unMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+			    System.exit(0);
+			}
+		});
 
         file.add(unMenuItem);
 
@@ -151,7 +167,7 @@ public class Test extends JDialog {
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
-                Test ex = new Test();
+                MelodyMaker ex = new MelodyMaker();
                 ex.setVisible(true);
             }
         });
