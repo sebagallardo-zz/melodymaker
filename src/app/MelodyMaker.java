@@ -143,8 +143,12 @@ public class MelodyMaker extends JFrame {
         	
         }
         medio.add(claves, BorderLayout.LINE_START);
-                
-        medio.add(new DrawPanel());
+        
+        JPanel dibu = new JPanel(new BorderLayout());
+        dibu.setSize(new Dimension(0, 400));
+        dibu.add(new DrawPanel(), BorderLayout.CENTER);
+        
+        medio.add(dibu);
         
 		return medio;
 	}
@@ -208,17 +212,18 @@ public class MelodyMaker extends JFrame {
 	    private void doDrawing(Graphics g) {
 	        
 	        Graphics2D g2d = (Graphics2D) g;
-
-	        g2d.drawLine(20, 20, 900, 20);
-	        g2d.drawLine(20, 50, 900, 50);
-	        g2d.drawLine(20, 80, 900, 80);
-	        g2d.drawLine(20, 110, 900, 110);
-	        g2d.drawLine(20, 140, 900, 140);
-	        
+	        g2d.drawLine(20, 60, 900, 60);
+	        g2d.drawLine(20, 90, 900, 90);
+	        g2d.drawLine(20, 120, 900, 120);
+	        g2d.drawLine(20, 150, 900, 150);
+	        g2d.drawLine(20, 180, 900, 180);
+	        g2d.drawRect(762, 60, 7, 120);
+	        g2d.drawRect(761, 60, 7, 120);
+	        g2d.drawRect(20, 60, 1, 120);
 	                
 	        Toolkit t = Toolkit.getDefaultToolkit();
 	        Image imagen = t.getImage("icons/clavesol-180.png");
-	        g2d.drawImage(imagen, -45, -1, this);
+	        g2d.drawImage(imagen, -45, 39, this);
 	        
 	        /* prueba de agregar figuras*/      
 	        drawingFiguras(g2d);
