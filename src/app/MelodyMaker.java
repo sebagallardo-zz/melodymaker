@@ -12,6 +12,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -31,7 +34,11 @@ import javax.swing.SwingUtilities;
 
 @SuppressWarnings("serial")
 public class MelodyMaker extends JFrame {
-
+	
+	private String melody = "";
+	private JTextField field;
+	private Figuras figuraActual = Figuras.Redonda;
+	
     public MelodyMaker() {
 
         initUI();
@@ -49,8 +56,6 @@ public class MelodyMaker extends JFrame {
         
         /* TOP */
         basic.add(topPanel());
-        
-        /* TODO: FALTA EL PENTAGRAMA */
         
         /* MIDDLE */
         basic.add(midPanel());
@@ -78,8 +83,14 @@ public class MelodyMaker extends JFrame {
         play.setMnemonic(KeyEvent.VK_P);
         JButton close = new JButton("Close");
         close.setMnemonic(KeyEvent.VK_C);
+        close.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				melody = "";
+				field.setText("");
+			}
+        });
 
-        JTextField field = new JTextField(32);
+        this.field = new JTextField(32);
         JLabel lbl = new JLabel("Melodia");
         bottom.add(lbl);
         bottom.add(field);
@@ -101,9 +112,10 @@ public class MelodyMaker extends JFrame {
         claves.setLayout(new GridLayout(7, 2));
         claves.setMaximumSize(new Dimension(250,200));
         
-        for (Claves cn : Claves.values()) {
-        	JLabel labelName = new JLabel(cn.getName());
-        	JButton labelIcon = new JButton(new ImageIcon(cn.getFile()));
+        for (Figuras f : Figuras.values()) {
+        	JLabel labelName = new JLabel(f.getName());
+        	JButton labelIcon = new JButton(new ImageIcon(f.getFile()));
+        	labelIcon.addActionListener(new FiguraListener(f));
         	claves.add(labelName);
         	claves.add(labelIcon);
         	
@@ -112,14 +124,26 @@ public class MelodyMaker extends JFrame {
                 
         medio.add(new DrawPanel());
         
-        
-        
 		return medio;
 	}
 
-	
-	class DrawPanel extends JPanel {
-
+	class FiguraListener implements ActionListener{
+		private Figuras figura;
+		
+		public FiguraListener(Figuras figura){
+			this.figura = figura;
+		}
+		public void actionPerformed(ActionEvent arg0) {
+			figuraActual = figura;
+		}
+		
+	}
+	class DrawPanel extends JPanel  implements MouseListener{
+		public DrawPanel(){
+			super();
+	        this.addMouseListener(this);
+		}
+		
 	    private void doDrawing(Graphics g) {
 	        
 	        Graphics2D g2d = (Graphics2D) g;
@@ -142,6 +166,34 @@ public class MelodyMaker extends JFrame {
 	        super.paintComponent(g);
 	        doDrawing(g);
 	    }
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+	        int y = e.getY();
+	        for (Notas nota : Notas.values()) {
+				if(nota.is(y)){ 
+					melody += " " + nota.getName();
+					field.setText(melody);
+					System.out.println("Nota: " + nota.getName() + " Figura: " + figuraActual.getName());
+				}
+			}
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
 	}
 	
 	

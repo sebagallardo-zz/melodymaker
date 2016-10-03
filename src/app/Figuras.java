@@ -1,13 +1,13 @@
 package app;
 
-public enum Claves {
+public enum Figuras {
 	
 	Redonda("Redonda"), Blanca("Blanca"), Negra("Negra"), Corchea("Corchea"), Semicorchea("Semicorchea"), Fusa("Fusa"), Semifusa("Semifusa");
 	
 	private String name;
 	private String file;
 	
-	Claves(String name){
+	Figuras(String name){
 		this.setName(name);
 		this.setFile("icons/" + name + ".png");
 	}
