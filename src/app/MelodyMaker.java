@@ -70,7 +70,7 @@ public class MelodyMaker extends JFrame {
 
 
         setTitle("Melody Maker");
-        setSize(new Dimension(960, 460));
+        setSize(new Dimension(1024, 460));
         setResizable(false);
         setLocationRelativeTo(null);
         
@@ -108,7 +108,7 @@ public class MelodyMaker extends JFrame {
 	
 	private JPanel topPanel() {
 		JPanel topPanel = new JPanel(new BorderLayout(0, 0));
-        topPanel.setMaximumSize(new Dimension(900, 100));
+        topPanel.setMaximumSize(new Dimension(1000, 100));
         
         JLabel hint = new JLabel("Melody Maker");
         hint.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 0));
@@ -128,7 +128,7 @@ public class MelodyMaker extends JFrame {
 
 	private JPanel midPanel() {
 		JPanel medio = new JPanel(new BorderLayout());
-        medio.setMaximumSize(new Dimension(800, 300));
+        medio.setMaximumSize(new Dimension(950, 300));
         
         JPanel claves = new JPanel();
         claves.setLayout(new GridLayout(7, 2));
@@ -209,11 +209,11 @@ public class MelodyMaker extends JFrame {
 	        
 	        Graphics2D g2d = (Graphics2D) g;
 
-	        g2d.drawLine(20, 20, 700, 20);
-	        g2d.drawLine(20, 50, 700, 50);
-	        g2d.drawLine(20, 80, 700, 80);
-	        g2d.drawLine(20, 110, 700, 110);
-	        g2d.drawLine(20, 140, 700, 140);
+	        g2d.drawLine(20, 20, 900, 20);
+	        g2d.drawLine(20, 50, 900, 50);
+	        g2d.drawLine(20, 80, 900, 80);
+	        g2d.drawLine(20, 110, 900, 110);
+	        g2d.drawLine(20, 140, 900, 140);
 	        
 	                
 	        Toolkit t = Toolkit.getDefaultToolkit();
