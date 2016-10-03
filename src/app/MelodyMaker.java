@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -139,9 +141,14 @@ public class MelodyMaker extends JFrame {
 		
 	}
 	class DrawPanel extends JPanel  implements MouseListener{
+		
+		private List<BufferFigura> bufferFiguras;
+		private Image bufferImage;
+		
 		public DrawPanel(){
 			super();
 	        this.addMouseListener(this);
+	        bufferFiguras = new ArrayList<BufferFigura>();
 		}
 		
 	    private void doDrawing(Graphics g) {
@@ -154,10 +161,25 @@ public class MelodyMaker extends JFrame {
 	        g2d.drawLine(20, 110, 700, 110);
 	        g2d.drawLine(20, 140, 700, 140);
 	        
+	                
 	        Toolkit t = Toolkit.getDefaultToolkit();
 	        Image imagen = t.getImage("icons/Clavesol.png");
-	        g.drawImage(imagen, 20, 40, this);
+	        g2d.drawImage(imagen, 20, 40, this);
+	        
+	        /* prueba de agregar figuras*/      
+	        drawingFiguras(g2d);
+	        /* fin prueba */
+	        
 	   
+	    }
+	    
+	    public void drawingFiguras(Graphics2D g2d){
+    	
+        	for (BufferFigura bf : bufferFiguras){
+        		bufferImage = new ImageIcon(bf.getFigura().getFile()).getImage();
+        		g2d.drawImage(bufferImage, bf.getX(), bf.getY(), this);
+        	}
+	        
 	    }
 
 	    @Override
@@ -175,6 +197,11 @@ public class MelodyMaker extends JFrame {
 					melody += " " + nota.getName();
 					field.setText(melody);
 					System.out.println("Nota: " + nota.getName() + " Figura: " + figuraActual.getName());
+					
+					/* probando agregar al pentragrama*/
+					bufferFiguras.add( new BufferFigura(figuraActual, e.getX(), y));
+					repaint();
+					/* fin */
 				}
 			}
 		}
