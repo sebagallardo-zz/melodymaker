@@ -88,6 +88,7 @@ public class MelodyMaker extends JFrame {
         close.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				melodia.clear();
+				field.setText("");
 				repaint(); /* no preguntes por que se puede hacer un repaint de aca porque nose */
 			}
         });
