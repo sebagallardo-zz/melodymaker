@@ -73,7 +73,8 @@ public class MelodyMaker extends JFrame {
         setSize(new Dimension(1024, 460));
         setResizable(false);
         setLocationRelativeTo(null);
-        
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         ImageIcon webIcon = new ImageIcon("icons/turntable.png");
         setIconImage(webIcon.getImage());
     }
@@ -158,7 +159,7 @@ public class MelodyMaker extends JFrame {
 
         JButton play = new JButton("Play");
         play.setMnemonic(KeyEvent.VK_P);
-        JButton close = new JButton("Close");
+        JButton close = new JButton("Clean");
         close.setMnemonic(KeyEvent.VK_C);
         close.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -171,7 +172,7 @@ public class MelodyMaker extends JFrame {
         play.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
         		Player player = new Player();
-        		player.play(melodia.getMelodia());
+        		player.play(field.getText());
         	}
         });
 
@@ -254,7 +255,6 @@ public class MelodyMaker extends JFrame {
 				if(nota.is(y)){ 
 					melodia.addNota(new Nota(nota, figuraActual, e.getX(), e.getY()));
 					field.setText(melodia.toString());
-					System.out.println(melodia.toString());
 					repaint();
 					return;
 				}
