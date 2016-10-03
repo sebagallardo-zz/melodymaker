@@ -43,6 +43,7 @@ public class MelodyMaker extends JFrame {
 	private String americanMelody = "";
 	private JTextField field;
 	private Figuras figuraActual = Figuras.Redonda;
+	private List<BufferFigura> bufferFiguras;
 	
     public MelodyMaker() {
 
@@ -91,7 +92,10 @@ public class MelodyMaker extends JFrame {
         close.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				melody = "";
+				americanMelody = "";
 				field.setText("");
+				bufferFiguras.clear();
+				repaint(); /* no preguntes por que se puede hacer un repaint de aca porque nose */
 			}
         });
         
@@ -152,7 +156,7 @@ public class MelodyMaker extends JFrame {
 	}
 	class DrawPanel extends JPanel  implements MouseListener{
 		
-		private List<BufferFigura> bufferFiguras;
+		
 		private Image bufferImage;
 		
 		public DrawPanel(){
@@ -189,7 +193,6 @@ public class MelodyMaker extends JFrame {
         		bufferImage = new ImageIcon(bf.getFigura().getFile()).getImage();
         		g2d.drawImage(bufferImage, bf.getX(), bf.getY(), this);
         	}
-	        
 	    }
 
 	    @Override
