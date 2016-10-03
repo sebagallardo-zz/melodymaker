@@ -33,11 +33,14 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
+import org.jfugue.player.Player;
+
 
 @SuppressWarnings("serial")
 public class MelodyMaker extends JFrame {
 	
 	private String melody = "";
+	private String americanMelody = "";
 	private JTextField field;
 	private Figuras figuraActual = Figuras.Redonda;
 	
@@ -90,6 +93,13 @@ public class MelodyMaker extends JFrame {
 				melody = "";
 				field.setText("");
 			}
+        });
+        
+        play.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent e) {
+        		Player player = new Player();
+        		player.play(americanMelody);
+        	}
         });
 
         this.field = new JTextField(32);
@@ -195,6 +205,7 @@ public class MelodyMaker extends JFrame {
 	        for (Notas nota : Notas.values()) {
 				if(nota.is(y)){ 
 					melody += " " + nota.getName();
+					americanMelody += " " + nota;
 					field.setText(melody);
 					System.out.println("Nota: " + nota.getName() + " Figura: " + figuraActual.getName());
 					
