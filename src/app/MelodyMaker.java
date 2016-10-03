@@ -217,8 +217,8 @@ public class MelodyMaker extends JFrame {
 	        
 	                
 	        Toolkit t = Toolkit.getDefaultToolkit();
-	        Image imagen = t.getImage("icons/Clavesol.png");
-	        g2d.drawImage(imagen, 20, 40, this);
+	        Image imagen = t.getImage("icons/clavesol-180.png");
+	        g2d.drawImage(imagen, -45, -1, this);
 	        
 	        /* prueba de agregar figuras*/      
 	        drawingFiguras(g2d);
