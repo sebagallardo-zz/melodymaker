@@ -39,7 +39,7 @@ public class MelodyMaker extends JFrame {
 	
 	private JTextField field;
 	private Figuras figuraActual = Figuras.Redonda;
-	private BufferNota melodia;
+	private Melodia melodia;
 	
     public MelodyMaker() {
 
@@ -155,7 +155,7 @@ public class MelodyMaker extends JFrame {
 		public DrawPanel(){
 			super();
 	        this.addMouseListener(this);
-	        melodia = new BufferNota();
+	        melodia = new Melodia();
 		}
 		
 	    private void doDrawing(Graphics g) {

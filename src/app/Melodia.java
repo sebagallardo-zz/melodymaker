@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class BufferNota {
+public class Melodia {
 	private List<Nota> notas;
 	private String melodia;
 	
-	public BufferNota(){
+	public Melodia(){
 		this.setNotas(new ArrayList<Nota>());
 		this.setMelodia("");
 	}
