@@ -32,7 +32,6 @@ public class Melodia {
 
 	public void addNota(Nota nota){
 		getNotas().add(nota);
-//		setMelodia(this.getMelodia() + nota.getNota().name() + nota.getFigura() + " ");
 		
 		Collections.sort(getNotas(), new Comparator<Nota>(){
 

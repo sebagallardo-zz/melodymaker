@@ -78,6 +78,77 @@ public class MelodyMaker extends JFrame {
         setIconImage(webIcon.getImage());
     }
 
+    
+    private void iniMenu() {
+
+        JMenuBar menubar = new JMenuBar();
+        ImageIcon icon = new ImageIcon("icons/exit24.png");
+
+        JMenu file = new JMenu("File");
+        file.setMnemonic(KeyEvent.VK_F);
+
+        JMenuItem unMenuItem = new JMenuItem("Exit", icon);
+        unMenuItem.setMnemonic(KeyEvent.VK_E);
+        unMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,
+                ActionEvent.CTRL_MASK));
+        unMenuItem.setToolTipText("Exit application");
+        unMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+			    System.exit(0);
+			}
+		});
+
+        file.add(unMenuItem);
+
+        menubar.add(file);
+
+        setJMenuBar(menubar);
+    }
+
+	
+	private JPanel topPanel() {
+		JPanel topPanel = new JPanel(new BorderLayout(0, 0));
+        topPanel.setMaximumSize(new Dimension(900, 100));
+        
+        JLabel hint = new JLabel("Melody Maker");
+        hint.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        topPanel.add(hint);
+
+        ImageIcon icon = new ImageIcon("icons/altavoces.png");
+        JLabel label = new JLabel(icon);
+        label.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        topPanel.add(label, BorderLayout.EAST);
+
+        JSeparator separator = new JSeparator();
+        separator.setForeground(Color.gray);
+
+        topPanel.add(separator, BorderLayout.SOUTH);
+		return topPanel;
+	}
+
+	private JPanel midPanel() {
+		JPanel medio = new JPanel(new BorderLayout());
+        medio.setMaximumSize(new Dimension(800, 300));
+        
+        JPanel claves = new JPanel();
+        claves.setLayout(new GridLayout(7, 2));
+        claves.setMaximumSize(new Dimension(250,200));
+        
+        for (Figuras f : Figuras.values()) {
+        	JLabel labelName = new JLabel(f.getName());
+        	JButton labelIcon = new JButton(new ImageIcon(f.getFile()));
+        	labelIcon.addActionListener(new FiguraListener(f));
+        	claves.add(labelName);
+        	claves.add(labelIcon);
+        	
+        }
+        medio.add(claves, BorderLayout.LINE_START);
+                
+        medio.add(new DrawPanel());
+        
+		return medio;
+	}
+
 	private JPanel bottomPanel() {
 		JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
@@ -89,7 +160,7 @@ public class MelodyMaker extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				melodia.clear();
 				field.setText("");
-				repaint(); /* no preguntes por que se puede hacer un repaint de aca porque nose */
+				repaint();
 			}
         });
         
@@ -110,31 +181,6 @@ public class MelodyMaker extends JFrame {
         bottom.add(close);
         bottom.setMaximumSize(new Dimension(600,0));
 		return bottom;
-	}
-
-	private JPanel midPanel() {
-		//JPanel medio = new JPanel(new FlowLayout(FlowLayout.LEFT));.
-		JPanel medio = new JPanel(new BorderLayout());
-		//JPanel medio = new JPanel(new GridLayout(1,2));
-        medio.setMaximumSize(new Dimension(800, 300));
-        
-        JPanel claves = new JPanel();
-        claves.setLayout(new GridLayout(7, 2));
-        claves.setMaximumSize(new Dimension(250,200));
-        
-        for (Figuras f : Figuras.values()) {
-        	JLabel labelName = new JLabel(f.getName());
-        	JButton labelIcon = new JButton(new ImageIcon(f.getFile()));
-        	labelIcon.addActionListener(new FiguraListener(f));
-        	claves.add(labelName);
-        	claves.add(labelIcon);
-        	
-        }
-        medio.add(claves, BorderLayout.LINE_START);
-                
-        medio.add(new DrawPanel());
-        
-		return medio;
 	}
 
 	class FiguraListener implements ActionListener{
@@ -227,56 +273,6 @@ public class MelodyMaker extends JFrame {
 		}
 	}
 	
-	
-	
-	
-	private JPanel topPanel() {
-		JPanel topPanel = new JPanel(new BorderLayout(0, 0));
-        topPanel.setMaximumSize(new Dimension(900, 100));
-        
-        JLabel hint = new JLabel("Melody Maker");
-        hint.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 0));
-        topPanel.add(hint);
-
-        ImageIcon icon = new ImageIcon("icons/altavoces.png");
-        JLabel label = new JLabel(icon);
-        label.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        topPanel.add(label, BorderLayout.EAST);
-
-        JSeparator separator = new JSeparator();
-        separator.setForeground(Color.gray);
-
-        topPanel.add(separator, BorderLayout.SOUTH);
-		return topPanel;
-	}
-    
-    private void iniMenu() {
-
-        JMenuBar menubar = new JMenuBar();
-        ImageIcon icon = new ImageIcon("icons/exit24.png");
-
-        JMenu file = new JMenu("File");
-        file.setMnemonic(KeyEvent.VK_F);
-
-        JMenuItem unMenuItem = new JMenuItem("Exit", icon);
-        unMenuItem.setMnemonic(KeyEvent.VK_E);
-        unMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,
-                ActionEvent.CTRL_MASK));
-        unMenuItem.setToolTipText("Exit application");
-        unMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-			    System.exit(0);
-			}
-		});
-
-        file.add(unMenuItem);
-
-        menubar.add(file);
-
-        setJMenuBar(menubar);
-    }
-
-
     public static void main(String[] args) {
 
         SwingUtilities.invokeLater(new Runnable() {
