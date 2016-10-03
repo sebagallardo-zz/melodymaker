@@ -14,8 +14,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -39,11 +37,9 @@ import org.jfugue.player.Player;
 @SuppressWarnings("serial")
 public class MelodyMaker extends JFrame {
 	
-	private String melody = "";
-	private String americanMelody = "";
 	private JTextField field;
 	private Figuras figuraActual = Figuras.Redonda;
-	private List<BufferFigura> bufferFiguras;
+	private BufferNota melodia;
 	
     public MelodyMaker() {
 
@@ -91,10 +87,7 @@ public class MelodyMaker extends JFrame {
         close.setMnemonic(KeyEvent.VK_C);
         close.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				melody = "";
-				americanMelody = "";
-				field.setText("");
-				bufferFiguras.clear();
+				melodia.clear();
 				repaint(); /* no preguntes por que se puede hacer un repaint de aca porque nose */
 			}
         });
@@ -102,7 +95,7 @@ public class MelodyMaker extends JFrame {
         play.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
         		Player player = new Player();
-        		player.play(americanMelody);
+        		player.play(melodia.getMelodia());
         	}
         });
 
@@ -162,7 +155,7 @@ public class MelodyMaker extends JFrame {
 		public DrawPanel(){
 			super();
 	        this.addMouseListener(this);
-	        bufferFiguras = new ArrayList<BufferFigura>();
+	        melodia = new BufferNota();
 		}
 		
 	    private void doDrawing(Graphics g) {
@@ -189,9 +182,9 @@ public class MelodyMaker extends JFrame {
 	    
 	    public void drawingFiguras(Graphics2D g2d){
     	
-        	for (BufferFigura bf : bufferFiguras){
-        		bufferImage = new ImageIcon(bf.getFigura().getFile()).getImage();
-        		g2d.drawImage(bufferImage, bf.getX(), bf.getY(), this);
+        	for (Nota n : melodia.getNotas()){
+        		bufferImage = new ImageIcon(n.getFigura().getFile()).getImage();
+        		g2d.drawImage(bufferImage, n.getX(), n.getY(), this);
         	}
 	    }
 
@@ -207,15 +200,11 @@ public class MelodyMaker extends JFrame {
 	        int y = e.getY();
 	        for (Notas nota : Notas.values()) {
 				if(nota.is(y)){ 
-					melody += " " + nota.getName();
-					americanMelody += " " + nota;
-					field.setText(melody);
-					System.out.println("Nota: " + nota.getName() + " Figura: " + figuraActual.getName());
-					
-					/* probando agregar al pentragrama*/
-					bufferFiguras.add( new BufferFigura(figuraActual, e.getX(), y));
+					melodia.addNota(new Nota(nota, figuraActual, e.getX(), e.getY()));
+					field.setText(melodia.toString());
+					System.out.println(melodia.toString());
 					repaint();
-					/* fin */
+					return;
 				}
 			}
 		}

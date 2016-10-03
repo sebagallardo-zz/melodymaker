@@ -1,9 +1,10 @@
 package app;
 
 public enum Notas {
-	A("La", 105, 85), B("Si", 85, 75), C("Do", 75, 55), D("Re", 55, 45), E("Mi", 145, 135), F("Fa", 135, 115), G("Sol", 115, 105),
-	E2("Mi2", 45, 25), F2("Fa2", 25, 15);
-	
+	D4("Re4", 165, 145), 
+	E5("Mi5", 145, 135), F5("Fa5", 135, 115), G5("Sol5", 115, 105), A5("La5", 105, 85), B5("Si5", 85, 75), C5("Do5", 75, 55), D5("Re5", 55, 45), 
+	E6("Mi6", 45, 25), F6("Fa6", 25, 15), G6("Sol6", 15, 0);
+
 	private String name;
 	private int a;
 	private int b;

@@ -1,14 +1,16 @@
 package app;
 
-public class BufferFigura {
+public class Nota {
 
+	private Notas nota;
 	private Figuras figura;
 	private int x;
 	private int y;
 	
-	public BufferFigura(Figuras f, int posx, int posy){
-		this.figura = f;
-		this.x = posx;
+	public Nota(Notas n, Figuras f, int posx, int posy){
+		this.setNota(n);
+		this.setFigura(f);
+		this.setX(posx);
 		this.setY(posy);
 	}
 
@@ -35,6 +37,14 @@ public class BufferFigura {
 	public void setY(int y) {
 		// se resta para ajustar la imagen en el plano
 		this.y = y - 27;
+	}
+
+	public Notas getNota() {
+		return nota;
+	}
+
+	public void setNota(Notas nota) {
+		this.nota = nota;
 	}
 	
 	
