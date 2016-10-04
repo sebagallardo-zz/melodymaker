@@ -10,7 +10,7 @@ public enum Figuras {
 
 	Figuras(String name, String key){
 		this.setName(name);
-		this.setFile("icons/" + name + ".png");
+		this.setFile("/icons/" + name + ".png");
 		this.setKey(key);
 	}
 

@@ -8,7 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Toolkit;
+//import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -75,7 +75,7 @@ public class MelodyMaker extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        ImageIcon webIcon = new ImageIcon("icons/turntable.png");
+        ImageIcon webIcon = new ImageIcon(getClass().getResource("/icons/turntable.png"));;
         setIconImage(webIcon.getImage());
     }
 
@@ -83,7 +83,7 @@ public class MelodyMaker extends JFrame {
     private void iniMenu() {
 
         JMenuBar menubar = new JMenuBar();
-        ImageIcon icon = new ImageIcon("icons/exit24.png");
+        ImageIcon icon = new ImageIcon(getClass().getResource("/icons/exit24.png"));
 
         JMenu file = new JMenu("File");
         file.setMnemonic(KeyEvent.VK_F);
@@ -115,7 +115,7 @@ public class MelodyMaker extends JFrame {
         hint.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 0));
         topPanel.add(hint);
 
-        ImageIcon icon = new ImageIcon("icons/altavoces.png");
+        ImageIcon icon = new ImageIcon(getClass().getResource("/icons/altavoces.png"));
         JLabel label = new JLabel(icon);
         label.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         topPanel.add(label, BorderLayout.EAST);
@@ -137,7 +137,7 @@ public class MelodyMaker extends JFrame {
         
         for (Figuras f : Figuras.values()) {
         	JLabel labelName = new JLabel(f.getName());
-        	JButton labelIcon = new JButton(new ImageIcon(f.getFile()));
+        	JButton labelIcon = new JButton(new ImageIcon(new ImageIcon(getClass().getResource(f.getFile())).getImage()));
         	labelIcon.addActionListener(new FiguraListener(f));
         	claves.add(labelName);
         	claves.add(labelIcon);
@@ -222,10 +222,12 @@ public class MelodyMaker extends JFrame {
 	        g2d.drawRect(761, 60, 7, 120);
 	        g2d.drawRect(20, 60, 1, 120);
 	                
-	        Toolkit t = Toolkit.getDefaultToolkit();
-	        Image imagen = t.getImage("icons/clavesol-180.png");
-	        g2d.drawImage(imagen, -45, 39, this);
+	        //Toolkit t = Toolkit.getDefaultToolkit();
+	        //Image imagen = t.getImage("icons/clavesol-180.png");
+	        //g2d.drawImage(imagen, -45, 39, this);
 	        
+	        Image im = new ImageIcon(getClass().getResource("/icons/clavesol-180.png")).getImage();
+	        g2d.drawImage(im, -45, 39, this);
 	        /* prueba de agregar figuras*/      
 	        drawingFiguras(g2d);
 	        /* fin prueba */
@@ -236,7 +238,7 @@ public class MelodyMaker extends JFrame {
 	    public void drawingFiguras(Graphics2D g2d){
     	
         	for (Nota n : melodia.getNotas()){
-        		bufferImage = new ImageIcon(n.getFigura().getFile()).getImage();
+        		bufferImage = new ImageIcon(getClass().getResource(n.getFigura().getFile())).getImage();
         		g2d.drawImage(bufferImage, n.getX(), n.getY(), this);
         	}
 	    }
